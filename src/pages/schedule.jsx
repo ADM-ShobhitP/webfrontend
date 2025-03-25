@@ -1,0 +1,83 @@
+import { useState, useEffect } from "react";
+import { Box, Button, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import Layout from "@/components/Layout";
+import { useRouter } from "next/router";
+import service from "../../service_axios";
+
+export default function Schedule() {
+    const [schedules, setSchedules] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const router = useRouter();
+
+
+    const fetchSchedules = () => {
+        setLoading(true);
+        service.get("/schedules/")
+            .then(response => {
+                console.log(response.data)
+                setSchedules(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("Error fetching schedules", error);
+                setError("Failed to fetch schedules. Try Again Later.");
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        fetchSchedules();
+    }, []);
+
+    const handleClick = (schedule) => {
+        router.push({
+            pathname: '/adetails/',
+            query: {
+                schedule_data: JSON.stringify(schedule),
+            },
+        });
+    };
+
+
+    return (
+        <Layout>
+            <Box ml={25} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
+
+                <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Schedule Table</Typography>
+
+                {loading ? (
+                    <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
+                ): (
+                    <TableContainer component={Paper} sx={{ width: '60%', mt: 3, mb: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow sx={{backgroundColor: '#f2f2f2' }}>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Approver</TableCell>
+                                    <TableCell>Collectors</TableCell>
+                                    <TableCell>Plant</TableCell>
+                                    <TableCell>Visit Date</TableCell>
+                                    <TableCell>Details</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {schedules.map(schedule => (
+                                    <TableRow key={schedule.id}>
+                                        <TableCell>{schedule.id}</TableCell>
+                                        <TableCell>{schedule.approver.username}</TableCell>
+                                        <TableCell>{schedule.collectors.length > 0 ? schedule.collectors.map(collecotor => collecotor.username).join(", ") : "NA"}</TableCell>
+                                        <TableCell>{schedule.plant.name}</TableCell>
+                                        <TableCell>{schedule.visit_date}</TableCell>
+                                        <TableCell><Button variant="contained" onClick={() => handleClick(schedule.id)}>Details</Button></TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
+
+            </Box>
+        </Layout>
+    )
+}

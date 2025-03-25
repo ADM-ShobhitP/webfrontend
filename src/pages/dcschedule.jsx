@@ -1,0 +1,107 @@
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@mui/material";
+import Image from "next/image";
+import Layout from "@/components/Layout";
+import service from "../../service_axios";
+
+export default function DCSchedule() {
+    const [schedules, setSchedules] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const router = useRouter();
+    const { collector_id, collector_data } = router.query;    
+    const [collector, setCollector] = useState(JSON.parse(collector_data));
+
+    useEffect(() => {
+        service.get(`/collschedulesid/?collector_id=${collector_id}`)
+            .then(response => {
+                console.log(response.data);
+                setSchedules(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("Error fetching schedules:", error);
+                setError("Failed to fetch schedules. Try Again Later.");
+                setLoading(false);
+            });
+    }, [collector_id]);
+
+    const handleClick = (schedule) => {
+        router.push({
+            pathname: '/adetails/',
+            query: {
+                schedule_data: JSON.stringify(schedule),
+            },
+        });
+    };
+
+
+    return (
+        <Layout>
+            <Box ml={30} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
+
+                {/* Collector Details */}
+                {collector ? (
+                    <Paper sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", 
+                        p: 3, mb: 3, width: "40%", borderRadius: "12px", boxShadow: "3px 3px 15px rgba(0, 0, 0, 0.2)", backgroundColor: "#f9f9f9",
+                    }}
+                    >
+                        <Box display="flex" justifyContent="center" mb={2}>
+                            <Image src='/collector.jpeg' alt="Profile" width={120} height={120} 
+                                style={{ borderRadius: "50%", border: "4px solid #1976D2", boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.2)" }} 
+                            />
+                        </Box>
+                        <Typography variant="h5" sx={{ fontWeight: "bold", color: "#333", mb: 1 }}> Data Collector Details</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}>
+                            <strong style={{ color: "#1976D2" }}>ID:</strong> {collector.id}
+                        </Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}>
+                            <strong style={{ color: "#1976D2" }}>Username:</strong> {collector.username}
+                        </Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}>
+                            <strong style={{ color: "#1976D2" }}>Role:</strong> {collector.role}
+                        </Typography>
+                    </Paper>
+                ) : (
+                    <Typography variant="h5" sx={{ color: "gray", mb: 3 }}>Loading Collector Details...</Typography>
+                )}
+
+                {/* Collector's Schedule Table */}
+                <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Collector's Schedule Table</Typography>
+
+                {loading ? (
+                    <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
+                ) : (
+                    <TableContainer component={Paper} sx={{ width: '60%', mt: 3, mb: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow sx={{backgroundColor: '#f2f2f2' }}>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Collectors</TableCell>
+                                    <TableCell>Plant</TableCell>
+                                    <TableCell>Visit Date</TableCell>
+                                    <TableCell>Details</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {schedules.map(schedule => (
+                                    <TableRow key={schedule.id}>
+                                        <TableCell>{schedule.id}</TableCell>
+                                        <TableCell>
+                                            {schedule.collectors.length > 0 ? schedule.collectors.map(c => c.username).join(", ") : "NA"}
+                                        </TableCell>
+                                        <TableCell>{schedule.plant.name}</TableCell>
+                                        <TableCell>{schedule.visit_date}</TableCell>
+                                        <TableCell><Button variant="contained" onClick={() => handleClick(schedule.id)}>Details</Button></TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
+
+            </Box>
+        </Layout>
+    );
+}
