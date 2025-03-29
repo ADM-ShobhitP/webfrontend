@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = axios.create({
-    baseURL: "http://192.168.39.238:8000",
+    baseURL: "http://10.1.15.45:8000",
 });
 
 export default service;

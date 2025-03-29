@@ -36,6 +36,7 @@ async function getToken() {
             user: {
                 username: "admin",
             }
+            
         };
 
         console.log("Guest Token API:", `${supersetApiUrl}/guest_token`);

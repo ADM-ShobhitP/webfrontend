@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@mui/material";
+import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Button } from "@mui/material";
 import Image from "next/image";
 import Layout from "@/components/Layout";
 import service from "../../service_axios";
@@ -12,6 +12,9 @@ export default function DCSchedule() {
     const router = useRouter();
     const { collector_id, collector_data } = router.query;    
     const [collector, setCollector] = useState(JSON.parse(collector_data));
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsperPage] = useState(10);
+
 
     useEffect(() => {
         service.get(`/collschedulesid/?collector_id=${collector_id}`)
@@ -35,6 +38,16 @@ export default function DCSchedule() {
             },
         });
     };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsperPage = (event) => {
+        setRowsperPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
 
 
     return (
@@ -73,32 +86,38 @@ export default function DCSchedule() {
                 {loading ? (
                     <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
                 ) : (
-                    <TableContainer component={Paper} sx={{ width: '60%', mt: 3, mb: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
-                        <Table>
-                            <TableHead>
-                                <TableRow sx={{backgroundColor: '#f2f2f2' }}>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Collectors</TableCell>
-                                    <TableCell>Plant</TableCell>
-                                    <TableCell>Visit Date</TableCell>
-                                    <TableCell>Details</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {schedules.map(schedule => (
-                                    <TableRow key={schedule.id}>
-                                        <TableCell>{schedule.id}</TableCell>
-                                        <TableCell>
-                                            {schedule.collectors.length > 0 ? schedule.collectors.map(c => c.username).join(", ") : "NA"}
-                                        </TableCell>
-                                        <TableCell>{schedule.plant.name}</TableCell>
-                                        <TableCell>{schedule.visit_date}</TableCell>
-                                        <TableCell><Button variant="contained" onClick={() => handleClick(schedule.id)}>Details</Button></TableCell>
+                    <Paper sx={{ width: '60%', mt: 3, mb: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                        <TableContainer>
+                            <Table>
+                                <TableHead>
+                                    <TableRow sx={{backgroundColor: '#f2f2f2' }}>
+                                        <TableCell>ID</TableCell>
+                                        <TableCell>Collectors</TableCell>
+                                        <TableCell>Plant</TableCell>
+                                        <TableCell>Visit Date</TableCell>
+                                        <TableCell>Details</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {schedules.slice(page*rowsPerPage, page*rowsPerPage +rowsPerPage).map((schedule) => (
+                                        <TableRow key={schedule.id}>
+                                            <TableCell>{schedule.id}</TableCell>
+                                            <TableCell>
+                                                {schedule.collectors.length > 0 ? schedule.collectors.map(c => c.username).join(", ") : "NA"}
+                                            </TableCell>
+                                            <TableCell>{schedule.plant.name}</TableCell>
+                                            <TableCell>{schedule.visit_date}</TableCell>
+                                            <TableCell><Button variant="contained" onClick={() => handleClick(schedule.id)}>Details</Button></TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        
+                        <TablePagination rowsPerPageOptions={[10,20,50]} component="div" count={schedules.length} 
+                            rowsPerPage={rowsPerPage} page={page} onPageChange={handleChangePage} onRowsPerPageChange={handleChangeRowsperPage} 
+                        />
+                    </Paper>
                 )}
 
             </Box>

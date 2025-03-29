@@ -44,6 +44,7 @@ export default function Navbar() {
                             <Link href="/approver" passHref><Button color="inherit">Approver</Button></Link>
                             <Link href="/collector" passHref><Button color="inherit">Collector</Button></Link>
                             <Link href="/schedule" passHref><Button color="inherit">Schedule</Button></Link>
+                            <Link href="/predict" passHref><Button color="inherit">Prediction</Button></Link>
                             <Link href="/newuser" passHref><Button color="inherit">User</Button></Link>
 
                         </>
