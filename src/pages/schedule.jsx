@@ -53,7 +53,7 @@ export default function Schedule() {
 
     return (
         <Layout>
-            <Box ml={25} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
+            <Box  sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 4 }}>
 
                 <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Schedule Table</Typography>
 

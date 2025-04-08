@@ -42,7 +42,7 @@ export default function Approver() {
 
     return (
         <Layout>
-            <Box ml={25} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
 
                 <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Approver Table</Typography>
 

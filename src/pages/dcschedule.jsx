@@ -52,7 +52,7 @@ export default function DCSchedule() {
 
     return (
         <Layout>
-            <Box ml={30} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
 
                 {/* Collector Details */}
                 {collector ? (

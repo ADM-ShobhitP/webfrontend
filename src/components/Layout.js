@@ -24,7 +24,7 @@ export default function Layout({ children }) {
     return (
         <Box>
             <Navbar isAuthenticated={isAuthenticated} />
-            <Container maxWidth="xl" sx={{ mt: 4, mr: '400px' }}>{children}</Container>
+            <Container maxWidth="100%" style={{ paddingLeft: 0, paddingRight: 0 }} >{children}</Container>
         </Box>
     );
 }

@@ -36,7 +36,7 @@ export default function NewUser() {
 
     return (
         <Layout>
-            <Box ml={25} display='flex' justifyContent='center' alignItems='center' minHeight="100vh">
+            <Box display='flex' justifyContent='center' alignItems='center' minHeight="100vh">
                 <Card sx={{ maxWidth: 420, p: 3, boxShadow: 6, borderRadius: 3 }}>
                     <CardContent>
                         <Box display='flex' justifyContent='center' mb={2}>

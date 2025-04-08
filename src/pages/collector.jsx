@@ -42,7 +42,7 @@ export default function Collector() {
     
     return (
         <Layout>
-            <Box ml={30} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
 
                 <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Collector Table</Typography>
 

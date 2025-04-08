@@ -132,11 +132,11 @@ export default function Search() {
     };
   
     return (
-      <Grid2>
+      <Grid2 >
         <Card variant="outlined"
           sx={{
             backgroundColor: 'white', borderRadius: 2, padding: 2, margin: 1,
-            boxShadow: 3, fontFamily: 'monospace', width: '300px', transition: 'transform 0.2s ease-in-out',
+            boxShadow: 3, fontFamily: 'monospace', width: { xs: '90vw', sm: '20vw' }, transition: 'transform 0.2s ease-in-out',
             '&:hover': { transform: 'scale(1.02)', boxShadow: 6 }
           }}
         >
@@ -185,7 +185,7 @@ export default function Search() {
 
 
   return (
-    <Layout sx={{ paddingLeft: '0px' }} >
+    <Layout >
       <SearchProvider config={config}>
         <div className="App">
           <ErrorBoundary>
@@ -220,11 +220,11 @@ export default function Search() {
                   <Facet key={"1"} field={"approvers.username.keyword"} label={"Approvers"} />
                   <Facet key={"2"} field={"collectors.username.keyword"} label={"Collectors"} />
                   <Facet key={"3"} field={"plant.name.keyword"} label={"Plant Name"} />
-                  <Facet key={"3"} field={"details.name_client.keyword"} label={"Client Name"} />
-                  <Facet key={"4"} field={"visit_date"} label={"Visit Date"} />
+                  <Facet key={"4"} field={"details.name_client.keyword"} label={"Client Name"} />
+                  <Facet key={"5"} field={"visit_date"} label={"Visit Date"} />
                 </div>
               }
-              bodyContent={<Results shouldTrackClickThrough={true} view={(props) => <Grid2 container spacing={2} direction="row" {...props} />} resultView={CustomResultView} />}
+              bodyContent={<Results shouldTrackClickThrough={true} view={(props) => <Grid2 container spacing={1} direction="row" {...props} />} resultView={CustomResultView} />}
 
               bodyHeader={
                 <React.Fragment>

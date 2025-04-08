@@ -9,7 +9,7 @@ export default function Home() {
     return (
         <Layout>
             <Container maxWidth="md">
-                <Box textAlign="center" mt={5} ml={25} >
+                <Box textAlign="center" mt={5} >
                     <Typography variant="h3" gutterBottom> Admin Website </Typography>
                     {user ? (
                     <>

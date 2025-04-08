@@ -54,7 +54,7 @@ export default function Login() {
             <Box sx={{ position:'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundImage: `url('/back.jpeg')`,
                 backgroundSize: 'cover', backgroundPosition: 'center', zIndex: -1
             }} />
-            <Box ml={25} display="flex" justifyContent="center" alignItems="center" height="80vh">
+            <Box display="flex" justifyContent="center" alignItems="center" height="80vh">
                 <Paper elevation={3} sx={{ padding: 4, width: 350, textAlign: 'center', backgroundColor: "rgba(255, 255, 255, 0.7)", boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
                     <Box display="flex" justifyContent="center" mb={2}>
                         <Image src='/login.png' alt="Profile" width={100} height={100} style={{ borderStyle: '60%' }} />

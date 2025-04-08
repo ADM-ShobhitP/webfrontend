@@ -31,7 +31,7 @@ export default function PredictSchedule() {
 
     return (
         <Layout>
-            <Box ml={30} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '80%' }}>
                     <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Predicted Schedules</Typography>
                     {/* Refresh Data Button */}
