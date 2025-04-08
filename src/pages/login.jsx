@@ -70,11 +70,6 @@ export default function Login() {
                             {loading ? <CircularProgress size={24} /> : "Login"}
                         </Button>
                         {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
-
-                        <Typography variant="body2" sx={{ fontSize: 17, mt: 2 }}>
-                            If you are a new user, {" "}
-                            <Link href="/signup" style={{ color: '#1E90FF', textDecoration: 'underline', cursor: 'pointer' }}>Sign up</Link>
-                        </Typography>
                     </form>
                 </Paper>
             </Box>

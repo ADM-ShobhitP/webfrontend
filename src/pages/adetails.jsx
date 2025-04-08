@@ -172,6 +172,12 @@ export default function ADetails() {
 
             {/* Map */}
                 <Typography variant="h5" sx={{ mb: 2,textDecoration:'underline' }}>Plant Location</Typography>
+                <Box textAlign='right'>
+                    <Typography variant="subtitle1">Plant Name:</Typography>
+                    <Typography variant="body1" fontWeight="bold">
+                        {approverData[0].plant.name}
+                    </Typography>
+                </Box>
                 <Map
                     location={{ lat: approverData[0].dc_location_lat, lng: approverData[0].dc_location_long }}
                     polygonBoundary={polygonBoundary}

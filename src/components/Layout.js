@@ -9,15 +9,22 @@ export default function Layout({ children }) {
     const router = useRouter();
 
     useEffect(() => {
+        const path = router.pathname
+
         if (!isAuthenticated && location.pathname != '/login' && location.pathname != '/signup') {
-            router.push(`/login?return_to=` + location.pathname);
+            let redirectPath = path;
+            if (path === '/adetails') redirectPath = '/schedule';
+            else if (path === '/aschedule') redirectPath = '/approver';
+            else if (path === '/dcschedule') redirectPath = '/collector';
+            
+            router.push(`/login?return_to=${redirectPath}`);
         }
     });
 
     return (
         <Box>
             <Navbar isAuthenticated={isAuthenticated} />
-            <Container maxWidth="lg" sx={{ mt: 4, mr: '400px' }}>{children}</Container>
+            <Container maxWidth="xl" sx={{ mt: 4, mr: '400px' }}>{children}</Container>
         </Box>
     );
 }

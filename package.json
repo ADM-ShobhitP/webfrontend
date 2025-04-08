@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@elastic/react-search-ui": "^1.23.0",
+    "@elastic/react-search-ui-views": "^1.23.0",
+    "@elastic/search-ui": "^1.23.0",
+    "@elastic/search-ui-elasticsearch-connector": "^1.23.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.6",
@@ -22,6 +26,7 @@
     "next": "15.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-error-boundary": "^5.0.0",
     "react-redux": "^9.2.0"
   }
 }

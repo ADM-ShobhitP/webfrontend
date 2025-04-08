@@ -44,9 +44,9 @@ export default function Navbar() {
                             <Link href="/approver" passHref><Button color="inherit">Approver</Button></Link>
                             <Link href="/collector" passHref><Button color="inherit">Collector</Button></Link>
                             <Link href="/schedule" passHref><Button color="inherit">Schedule</Button></Link>
-                            <Link href="/predict" passHref><Button color="inherit">Prediction</Button></Link>
                             <Link href="/newuser" passHref><Button color="inherit">User</Button></Link>
-
+                            <Link href="/predict" passHref><Button color="inherit">Prediction</Button></Link>
+                            <Link href="/search" passHref><Button color="inherit">Search</Button></Link>
                         </>
                     )}
                 </Box>
@@ -75,7 +75,7 @@ export default function Navbar() {
                         </Menu>
                     </>
                 ) : (
-                    <Button color="inherit" component={Link} disabled href="/login">Login</Button>
+                    <Button color="inherit" component={Link} disabled href="/login"></Button>
                 )}
             </Toolbar>
         </AppBar>
