@@ -7,7 +7,9 @@ import { useRouter } from "next/router";
 import { AppBar, Toolbar, Box, Typography, Button, IconButton, Menu, MenuItem } from "@mui/material";
 
 export default function Navbar() {
-    const { isAuthenticated } = useSelector((state) => state.authReducer);
+    const { isAuthenticated, role } = useSelector((state) => state.authReducer);
+    console.log("role", role)
+
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -28,6 +30,7 @@ export default function Navbar() {
         router.push("/login");
     };
 
+
     return (
         <AppBar position="static" sx={{ backgroundColor: "blue", paddingX: 2 }}>
             <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -38,7 +41,7 @@ export default function Navbar() {
                         <Link href="/" passHref style={{ textDecoration: "none", color: "white" }}>Home</Link>
                     </Typography>
 
-                    {isAuthenticated && (
+                    {isAuthenticated && role == "SuperAdmin" && (
                         <>
                             <Link href="/dashboard" passHref><Button color="inherit">Dashboard</Button></Link>
                             <Link href="/approver" passHref><Button color="inherit">Approver</Button></Link>

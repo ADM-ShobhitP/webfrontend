@@ -59,14 +59,20 @@ export default function Approver() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {approvers.map(approver => (
-                                    <TableRow key={approver.id}>
-                                        <TableCell>{approver.id}</TableCell>
-                                        <TableCell>{approver.username}</TableCell>
-                                        <TableCell>{approver.role}</TableCell>
-                                        <TableCell><Button variant="contained" onClick={() => handleClick(approver.id)}>Details</Button></TableCell>
+                                {approvers && approvers.length > 0 ? (
+                                    approvers.map((approver) => (
+                                        <TableRow key={approver.id}>
+                                            <TableCell>{approver.id}</TableCell>
+                                            <TableCell>{approver.username}</TableCell>
+                                            <TableCell>{approver.role}</TableCell>
+                                            <TableCell><Button variant="contained" onClick={() => handleClick(approver.id)}>Details</Button></TableCell>
+                                        </TableRow>
+                                    ))
+                                ): (
+                                    <TableRow>
+                                        <TableCell colSpan={4} align="center">Loading approvers or no data available.</TableCell>
                                     </TableRow>
-                                ))}
+                                )}
                             </TableBody>
                         </Table>
                     </TableContainer>
