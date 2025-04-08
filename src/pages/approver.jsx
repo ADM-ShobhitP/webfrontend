@@ -34,8 +34,7 @@ export default function Approver() {
         router.push({
             pathname: '/aschedule/',
             query: {
-                approver_id: approver.id,
-                approver_data: JSON.stringify(approver),
+                approver_id: approver,
             },
         });
     };
@@ -65,7 +64,7 @@ export default function Approver() {
                                         <TableCell>{approver.id}</TableCell>
                                         <TableCell>{approver.username}</TableCell>
                                         <TableCell>{approver.role}</TableCell>
-                                        <TableCell><Button variant="contained" onClick={() => handleClick(approver)}>Details</Button></TableCell>
+                                        <TableCell><Button variant="contained" onClick={() => handleClick(approver.id)}>Details</Button></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

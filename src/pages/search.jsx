@@ -2,10 +2,15 @@ import React from "react";
 import { SearchProvider, SearchBox, Results, Facet, ResultsPerPage, Sorting, Paging, PagingInfo } from "@elastic/react-search-ui";
 import { Typography, Card, CardMedia, CardContent, CardActions, Grid2, Button, } from "@mui/material";
 import { ErrorBoundary } from "react-error-boundary";
-import { Layout as ElasticLayout } from "@elastic/react-search-ui-views";
+// import { Layout as ElasticLayout } from "@elastic/react-search-ui-views";
 import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
+import dynamic from 'next/dynamic';
+
+const ElasticLayout = dynamic(() => import('@elastic/react-search-ui-views'), {
+  ssr: false,
+});
 
 
 const connector = new ElasticsearchAPIConnector({
@@ -228,11 +233,9 @@ export default function Search() {
 
               bodyHeader={
                 <React.Fragment>
-                  <PagingInfo />
                   <ResultsPerPage options={[10, 25, 50]} />
                 </React.Fragment>
               }
-              bodyFooter={<Paging />}
             />
           </ErrorBoundary>
         </div>

@@ -36,7 +36,7 @@ export default function Schedule() {
         router.push({
             pathname: '/adetails/',
             query: {
-                schedule_data: JSON.stringify(schedule),
+                schedule_data: schedule,
             },
         });
     };

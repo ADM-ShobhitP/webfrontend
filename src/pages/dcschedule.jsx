@@ -10,14 +10,14 @@ export default function DCSchedule() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const router = useRouter();
-    const { collector_id, collector_data } = router.query;    
-    const [collector, setCollector] = useState(JSON.parse(collector_data));
+    const { collector_data } = router.query;    
+    const [user, setUser] = useState(null);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsperPage] = useState(10);
 
 
     useEffect(() => {
-        service.get(`/collschedulesid/?collector_id=${collector_id}`)
+        service.get(`/collschedulesid/?collector_id=${collector_data}`)
             .then(response => {
                 console.log(response.data);
                 setSchedules(response.data);
@@ -28,7 +28,16 @@ export default function DCSchedule() {
                 setError("Failed to fetch schedules. Try Again Later.");
                 setLoading(false);
             });
-    }, [collector_id]);
+
+        service.get(`/users/${collector_data}`)
+            .then(response => {
+                console.log("users",response.data)
+                setUser(response.data)
+            })
+            .catch(error => {setError("Error in Fetching user details")});
+    }, [collector_data]);
+
+    
 
     const handleClick = (schedule) => {
         router.push({
@@ -38,6 +47,7 @@ export default function DCSchedule() {
             },
         });
     };
+
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -55,7 +65,7 @@ export default function DCSchedule() {
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
 
                 {/* Collector Details */}
-                {collector ? (
+                {user ? (
                     <Paper sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", 
                         p: 3, mb: 3, width: "40%", borderRadius: "12px", boxShadow: "3px 3px 15px rgba(0, 0, 0, 0.2)", backgroundColor: "#f9f9f9",
                     }}
@@ -66,15 +76,9 @@ export default function DCSchedule() {
                             />
                         </Box>
                         <Typography variant="h5" sx={{ fontWeight: "bold", color: "#333", mb: 1 }}> Data Collector Details</Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}>
-                            <strong style={{ color: "#1976D2" }}>ID:</strong> {collector.id}
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}>
-                            <strong style={{ color: "#1976D2" }}>Username:</strong> {collector.username}
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}>
-                            <strong style={{ color: "#1976D2" }}>Role:</strong> {collector.role}
-                        </Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>ID:</strong> {user.id}</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Username:</strong> {user.username}</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Role:</strong> {user.role}</Typography>
                     </Paper>
                 ) : (
                     <Typography variant="h5" sx={{ color: "gray", mb: 3 }}>Loading Collector Details...</Typography>

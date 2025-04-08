@@ -19,7 +19,6 @@ export default function ADetails() {
     const [insideBoundary, setInsideBoundary] = useState(false);
     const router = useRouter();
     const {schedule_data} = router.query;
-    const [schedule, setSchedule] = useState(JSON.parse(schedule_data));
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handlePopoverOpen = (event) => {

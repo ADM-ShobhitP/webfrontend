@@ -34,8 +34,7 @@ export default function Collector() {
         router.push({
             pathname: "/dcschedule/",
             query: {
-                collector_id: collector.id,
-                collector_data: JSON.stringify(collector),
+                collector_data: collector,
             },
         });
     };
@@ -65,7 +64,7 @@ export default function Collector() {
                                         <TableCell>{collector.id}</TableCell>
                                         <TableCell>{collector.username}</TableCell>
                                         <TableCell>{collector.role}</TableCell>
-                                        <TableCell><Button variant="contained" onClick={() => handleClick(collector)}>Details</Button></TableCell>
+                                        <TableCell><Button variant="contained" onClick={() => handleClick(collector.id)}>Details</Button></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

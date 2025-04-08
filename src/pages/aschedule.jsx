@@ -10,8 +10,8 @@ export default function ASchedule() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const router = useRouter();
-    const { approver_id, approver_data } = router.query; 
-    const [approver, setApprover] = useState(JSON.parse(approver_data));
+    const { approver_id } = router.query; 
+    const [user, setUser] = useState(null);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsperPage] = useState(10);
 
@@ -20,7 +20,7 @@ export default function ASchedule() {
         setLoading(true);
         service.get(`/apprschedulesid/?approver_id=${approver_id}`)
             .then(response => {
-                console.log(response.data)
+                console.log("aschedule prob", response.data)
                 setSchedules(response.data);
                 setLoading(false);
             })
@@ -29,6 +29,12 @@ export default function ASchedule() {
                 setError("Failed to fetch schedules. Try Again Later.");
                 setLoading(false);
             });
+        service.get(`/users/${approver_id}`)
+        .then(response => {
+            console.log("users",response.data)
+            setUser(response.data)
+        })
+        .catch(error => {setError("Error in Fetching user details")});
     };
 
     useEffect(() => {
@@ -71,7 +77,7 @@ export default function ASchedule() {
 
                 
                 {/* Approver Details */}
-                {approver ? (
+                {user ? (
                     <Paper sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", 
                         p: 3, mb: 3, width: "40%", borderRadius: "12px", boxShadow: "3px 3px 15px rgba(0, 0, 0, 0.2)", backgroundColor: "#f9f9f9",
                     }}
@@ -82,9 +88,9 @@ export default function ASchedule() {
                             />
                         </Box>
                         <Typography variant="h5" sx={{ fontWeight: "bold", color: "#333", mb: 1 }}>Approver Details</Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>ID:</strong> {approver.id}</Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Username:</strong> {approver.username}</Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Role:</strong> {approver.role}</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>ID:</strong> {user.id}</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Username:</strong> {user.username}</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Role:</strong> {user.role}</Typography>
                     </Paper>
                 ) : (
                     <Typography variant="h5" sx={{ color: "gray", mb: 3 }}>Loading Approver Details...</Typography>
