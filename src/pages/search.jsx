@@ -236,6 +236,7 @@ export default function Search() {
                   <ResultsPerPage options={[10, 25, 50]} />
                 </React.Fragment>
               }
+              bodyFooter={<Paging />}
             />
           </ErrorBoundary>
         </div>
