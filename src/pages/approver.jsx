@@ -47,7 +47,11 @@ export default function Approver() {
 
                 {loading ? (
                     <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
-                ): (
+                ): error ? (
+                    <Typography variant="h4" sx={{ mt: 3, color: 'red' }}>{error}</Typography>
+                ) : approvers.length === 0 ? (
+                    <Typography variant="h4" sx={{ mt: 3 }}>No Approvers found.</Typography>
+                ) : (
                     <TableContainer component={Paper} sx={{ width: '60%', mt: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
                         <Table>
                             <TableHead>
@@ -59,20 +63,14 @@ export default function Approver() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {approvers && approvers.length > 0 ? (
-                                    approvers.map((approver) => (
-                                        <TableRow key={approver.id}>
-                                            <TableCell>{approver.id}</TableCell>
-                                            <TableCell>{approver.username}</TableCell>
-                                            <TableCell>{approver.role}</TableCell>
-                                            <TableCell><Button variant="contained" onClick={() => handleClick(approver.id)}>Details</Button></TableCell>
-                                        </TableRow>
-                                    ))
-                                ): (
-                                    <TableRow>
-                                        <TableCell colSpan={4} align="center">Loading approvers or no data available.</TableCell>
+                                {approvers.map(approver => (
+                                    <TableRow key={approver.id}>
+                                        <TableCell>{approver.id}</TableCell>
+                                        <TableCell>{approver.username}</TableCell>
+                                        <TableCell>{approver.role}</TableCell>
+                                        <TableCell><Button variant="contained" onClick={() => handleClick(approver.id)}>Details</Button></TableCell>
                                     </TableRow>
-                                )}
+                                ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
