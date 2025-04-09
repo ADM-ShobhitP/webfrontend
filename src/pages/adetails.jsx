@@ -20,6 +20,7 @@ export default function ADetails() {
     const router = useRouter();
     const {schedule_data} = router.query;
     const [anchorEl, setAnchorEl] = useState(null);
+    
 
     const handlePopoverOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -31,12 +32,12 @@ export default function ADetails() {
 
     useEffect(() => {
         fetchApproverData();
-    },[schedule]);
+    },[schedule_data]);
 
     const fetchApproverData = () => {
         service.get('/gcd/')
             .then(response => {
-                const filteredData = response.data.filter(item => item.schedule.id === schedule);
+                const filteredData = response.data.filter(item => item.id == schedule_data);
                 console.log(filteredData);
 
                 if (filteredData) {
