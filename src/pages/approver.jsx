@@ -3,6 +3,7 @@ import { Box, Typography, Button, Paper, Table, TableBody, TableCell, TableConta
 import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
 import service from "../../service_axios";
+import { DataGrid } from "@mui/x-data-grid";
 
 
 export default function Approver() {
@@ -39,6 +40,19 @@ export default function Approver() {
         });
     };
 
+    const columns = [
+        { field: 'id', headerName: 'ID', width: 250 },
+        { field: 'username', headerName: 'Approver Name', width: 250 },
+        { field: 'role', headerName: 'Role', width: 250 },
+        { 
+            field: 'details', 
+            headerName: 'Details', 
+            width: 270, 
+            sortable: false,
+            renderCell: (params) => (<Button variant="contained" onClick={() => handleClick(params.row.id)}>Details</Button>),
+        }
+    ]
+
     return (
         <Layout>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
@@ -52,28 +66,31 @@ export default function Approver() {
                 ) : approvers.length === 0 ? (
                     <Typography variant="h4" sx={{ mt: 3 }}>No Approvers found.</Typography>
                 ) : (
-                    <TableContainer component={Paper} sx={{ width: '60%', mt: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
-                        <Table>
-                            <TableHead>
-                                <TableRow sx={{backgroundColor: '#f2f2f2' }}>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Approver Name</TableCell>
-                                    <TableCell>Role</TableCell>
-                                    <TableCell>Details</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {approvers.map(approver => (
-                                    <TableRow key={approver.id}>
-                                        <TableCell>{approver.id}</TableCell>
-                                        <TableCell>{approver.username}</TableCell>
-                                        <TableCell>{approver.role}</TableCell>
-                                        <TableCell><Button variant="contained" onClick={() => handleClick(approver.id)}>Details</Button></TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    <Paper elevation={3} sx={{ width: '60%', mt: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                        <DataGrid rows={approvers} columns={columns} pageSize={10} rowsPerPageOptions={[10, 25, 50]} disableRowSelectionOnClick />
+                    </Paper>
+                    // <TableContainer component={Paper} sx={{ width: '60%', mt: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                    //     <Table>
+                    //         <TableHead>
+                    //             <TableRow sx={{backgroundColor: '#f2f2f2' }}>
+                    //                 <TableCell>ID</TableCell>
+                    //                 <TableCell>Approver Name</TableCell>
+                    //                 <TableCell>Role</TableCell>
+                    //                 <TableCell>Details</TableCell>
+                    //             </TableRow>
+                    //         </TableHead>
+                    //         <TableBody>
+                    //             {approvers.map(approver => (
+                    //                 <TableRow key={approver.id}>
+                    //                     <TableCell>{approver.id}</TableCell>
+                    //                     <TableCell>{approver.username}</TableCell>
+                    //                     <TableCell>{approver.role}</TableCell>
+                    //                     <TableCell><Button variant="contained" onClick={() => handleClick(approver.id)}>Details</Button></TableCell>
+                    //                 </TableRow>
+                    //             ))}
+                    //         </TableBody>
+                    //     </Table>
+                    // </TableContainer>
                 )}
             </Box>
         </Layout>
