@@ -67,7 +67,7 @@ export default function Approver() {
                     <Typography variant="h4" sx={{ mt: 3 }}>No Approvers found.</Typography>
                 ) : (
                     <Paper elevation={3} sx={{ width: '60%', mt: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
-                        <DataGrid rows={approvers} columns={columns} pageSize={10} rowsPerPageOptions={[10, 25, 50]} disableRowSelectionOnClick />
+                        <DataGrid rows={approvers} getRowId={(row) => row.id} columns={columns} pageSize={10} rowsPerPageOptions={[10, 25, 50]} disableRowSelectionOnClick />
                     </Paper>
                     // <TableContainer component={Paper} sx={{ width: '60%', mt: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
                     //     <Table>
