@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Typography, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 import service from "../../service_axios";
 
@@ -20,7 +20,7 @@ export default function Approver() {
             })
             .catch(error => {
                 console.error("Error fetching approvers", error);
-                setError("Failed to fetch approvers. Try Again Later.");
+                setError("Failed to fetch approvers. Try Again Later");
                 setLoading(false);
             });
     };
@@ -45,6 +45,10 @@ export default function Approver() {
 
                 <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Approver Table</Typography>
 
+                {error && (
+                    <Typography variant="h3" color="error" sx={{ mt: 3 }} data-testid='error'>{error}</Typography>
+                )}
+
                 {loading ? (
                     <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
                 ):(
@@ -55,11 +59,11 @@ export default function Approver() {
                                     <TableCell>ID</TableCell>
                                     <TableCell>Approver Name</TableCell>
                                     <TableCell>Role</TableCell>
-                                    <TableCell>Details</TableCell>
+                                    <TableCell data-testid='button'>Details</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {approvers?.map(approver => (
+                                {approvers.map(approver => (
                                     <TableRow key={approver.id}>
                                         <TableCell>{approver.id}</TableCell>
                                         <TableCell>{approver.username}</TableCell>

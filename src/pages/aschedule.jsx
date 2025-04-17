@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Button, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from "@mui/material";
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import service from "../../service_axios";
@@ -30,11 +30,11 @@ export default function ASchedule() {
                 setLoading(false);
             });
         service.get(`/users/${approver_id}`)
-        .then(response => {
-            console.log("users",response.data)
-            setUser(response.data)
-        })
-        .catch(error => {setError("Error in Fetching user details")});
+            .then(response => {
+                console.log("users",response.data)
+                setUser(response.data)
+            })
+            .catch(error => {setError("Error in Fetching user details")});
     };
 
     useEffect(() => {
@@ -61,16 +61,6 @@ export default function ASchedule() {
     };
 
 
-    // const handleClick = (schedule) => {
-    //     router.push({
-    //         pathname: '/adetails/',
-    //     }, {
-    //         state: { schedule },
-    //     });
-    // };
-    
-
-
     return (
         <Layout>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
@@ -83,12 +73,12 @@ export default function ASchedule() {
                     }}
                     >
                         <Box display="flex" justifyContent="center" mb={2}>
-                            <Image src='/approver.png' alt="Profile" width={120} height={120} 
+                            <Image data-testid='image' src='/approver.png' alt="Profile" width={120} height={120} 
                                 style={{ borderRadius: "50%", border: "4px solid #1976D2", boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.2)" }} 
                             />
                         </Box>
                         <Typography variant="h5" sx={{ fontWeight: "bold", color: "#333", mb: 1 }}>Approver Details</Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>ID:</strong> {user.id}</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>ID:</strong> <span>{user.id}</span></Typography>
                         <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Username:</strong> {user.username}</Typography>
                         <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Role:</strong> {user.role}</Typography>
                     </Paper>
@@ -97,7 +87,11 @@ export default function ASchedule() {
                 )}
 
 
-                <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Approver's Schedule Table</Typography>
+                <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Approvers Schedule Table</Typography>
+
+                {error && (
+                    <Typography variant="h3" sx={{ mt: 3 }}>{error}</Typography>
+                )}
 
                 {loading ? (
                     <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
@@ -112,7 +106,7 @@ export default function ASchedule() {
                                         <TableCell>Collectors</TableCell>
                                         <TableCell>Plant</TableCell>
                                         <TableCell>Visit Date</TableCell>
-                                        <TableCell>Details</TableCell>
+                                        <TableCell data-testid='button'>Details</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

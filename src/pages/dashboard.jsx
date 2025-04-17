@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Box, Typography, Paper, Container } from "@mui/material";
 import { embedDashboard } from "@superset-ui/embedded-sdk";
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import service from "../../service_axios";
 import axios from "axios";
 
@@ -89,7 +89,6 @@ export default function Dashboard() {
 
     return (
         <Layout>
-
             <Box sx={{ p: 3, mt: 4, mb: 4, width: "90vw" }}>
                 <Typography variant="h4" fontWeight="bold" gutterBottom>Dashboard</Typography>
                     <div id="superset-container"></div>

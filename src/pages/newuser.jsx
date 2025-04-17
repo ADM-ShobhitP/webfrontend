@@ -3,7 +3,7 @@ import { Box, TextField, MenuItem, Select, InputLabel, FormControl, Button, Typo
 import { AccountCircle, Lock, AdminPanelSettings } from "@mui/icons-material";
 import Image from "next/image";
 import service from "../../service_axios";
-import Layout from "@/components/Layout";
+import Layout from '../components/Layout';
 
 export default function NewUser() {
     const [username, setUsername] = useState("");
@@ -31,7 +31,10 @@ export default function NewUser() {
                 setPassword("");
                 setRole("");
             })
-            .catch(error => {console.error("Error Inputting new user:", error)})
+            .catch(error => {
+                console.error("Error Inputting new user:", error);
+                setError("Failed to create new user")
+            })
     };
 
     return (
@@ -54,9 +57,9 @@ export default function NewUser() {
                             </TextField>
 
                             <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>Create User</Button>
-            
-                            {error && <Alert severity="error">{error}</Alert>}
-                            {success && <Alert severity="success">{success}</Alert>}
+                            
+                            {success && <Alert data-testid='success' severity="success">{success}</Alert>}
+                            {error && <Alert data-testid='error' severity="error">{error}</Alert>}
 
                         </form>
 

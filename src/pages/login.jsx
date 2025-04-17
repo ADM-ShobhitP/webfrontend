@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import { TextField, Button, Box, Typography, CircularProgress, Alert, Paper } from "@mui/material";
 import { AccountCircle, Lock } from "@mui/icons-material";
 import service from "../../service_axios";
@@ -43,7 +43,7 @@ export default function Login() {
             })
             .catch(error => {
                 console.log(error);
-                setError("Failed authentication", "Try Again");
+                setError("Failed authentication, Try Again");
                 setLoading(false);
             });
         setSubmitted(false);
@@ -69,7 +69,7 @@ export default function Login() {
                         <Button fullWidth type="submit" variant="contained" color="primary" disabled={loading}>
                             {loading ? <CircularProgress size={24} /> : "Login"}
                         </Button>
-                        {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+                        {error && <Alert data-testid='error' severity="error" sx={{ mt: 2 }}>{error}</Alert>}
                     </form>
                 </Paper>
             </Box>

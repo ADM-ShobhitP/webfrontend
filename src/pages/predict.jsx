@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Alert, Button } from "@mui/material";
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import service from "../../service_axios";
 
 export default function PredictSchedule() {
@@ -14,7 +14,6 @@ export default function PredictSchedule() {
         setError(null);
         service.get("/predictschedule/")
             .then(response => {
-                console.log("predict data", response.data)
                 setPredictions(response.data.data || []);
                 setMessage(response.data.message || "Predictions loaded successfully!");
                 setLoading(false);
@@ -35,12 +34,12 @@ export default function PredictSchedule() {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '80%' }}>
                     <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Predicted Schedules</Typography>
                     {/* Refresh Data Button */}
-                    <Button variant="contained" color="primary" onClick={fetchPredictions} sx={{ mt: 2 }}>
+                    <Button data-testid='button' variant="contained" color="primary" onClick={fetchPredictions} sx={{ mt: 2 }}>
                         Refresh Data
                     </Button>
                 </Box>
-                {loading && <CircularProgress color="primary" />}
-                {error && <Alert severity="error">Error: {error}</Alert>}
+                {loading && <CircularProgress data-testid='load' color="primary" />}
+                {error && <Alert data-testid='error' severity="error">Error: {error}</Alert>}
                 {!loading && !error && message && <Alert severity="success">{message}</Alert>}
 
                 {!loading && !error && predictions.length > 0 && (

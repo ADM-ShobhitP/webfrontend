@@ -44,10 +44,11 @@ export default function Navbar() {
                     {isAuthenticated && role == "SuperAdmin" && (
                         <>
                             <Link href="/dashboard" passHref><Button color="inherit">Dashboard</Button></Link>
+                            <Link href="/user" passHref><Button color="inherit">User</Button></Link>
                             <Link href="/approver" passHref><Button color="inherit">Approver</Button></Link>
                             <Link href="/collector" passHref><Button color="inherit">Collector</Button></Link>
                             <Link href="/schedule" passHref><Button color="inherit">Schedule</Button></Link>
-                            <Link href="/newuser" passHref><Button color="inherit">User</Button></Link>
+                            <Link href="/newuser" passHref><Button color="inherit">NewUser</Button></Link>
                             <Link href="/predict" passHref><Button color="inherit">Prediction</Button></Link>
                             {/* <Link href="/search" passHref><Button color="inherit">Search</Button></Link> */}
                         </>
@@ -63,6 +64,7 @@ export default function Navbar() {
                             aria-expanded={open ? "true" : undefined}
                             color="inherit"
                             onClick={handleClick}
+                            data-testid="logout-icon"
                         >
                             <AccountCircleIcon />
                         </IconButton>

@@ -1,10 +1,10 @@
-import Layout from "@/components/Layout";
+import Layout from '../components/Layout';
 import { useSelector } from "react-redux";
 import { Typography, Container, Box, Grid } from "@mui/material";
 
 
 export default function Home() {
-    const {user} = useSelector((state) => state.authReducer);
+    const { user } = useSelector((state) => state.authReducer);
 
     return (
         <Layout>
@@ -12,10 +12,10 @@ export default function Home() {
                 <Box textAlign="center" mt={5} >
                     <Typography variant="h3" gutterBottom> Admin Website </Typography>
                     {user ? (
-                    <>
-                        <Typography variant="h3" gutterBottom>Welcome Back Admin: {user}</Typography>
-                        <Typography variant="h3" gutterBottom>Project: Geolocation And Data Validation </Typography>
-                    </>
+                        <>
+                            <Typography variant="h3" gutterBottom>Welcome Back Admin: {user}</Typography>
+                            <Typography variant="h3" gutterBottom>Project: Geolocation And Data Validation </Typography>
+                        </>
                     ) : (
                         <Typography variant="h5" gutterBottom>Please log in to access more features.</Typography>
                     )}

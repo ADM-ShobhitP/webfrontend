@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Button, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination } from "@mui/material";
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 import service from "../../service_axios";
 
@@ -57,6 +57,10 @@ export default function Schedule() {
 
                 <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Schedule Table</Typography>
 
+                {error && (
+                    <Typography variant="h3" color="error" sx={{ mt: 3 }} data-testid='error'>{error}</Typography>
+                )}
+
                 {loading ? (
                     <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
                 ): (
@@ -70,7 +74,7 @@ export default function Schedule() {
                                         <TableCell>Collectors</TableCell>
                                         <TableCell>Plant</TableCell>
                                         <TableCell>Visit Date</TableCell>
-                                        <TableCell>Details</TableCell>
+                                        <TableCell data-testid='button' >Details</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

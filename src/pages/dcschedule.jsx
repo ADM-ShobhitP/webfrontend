@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Button } from "@mui/material";
 import Image from "next/image";
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import service from "../../service_axios";
 
 export default function DCSchedule() {
@@ -28,13 +28,12 @@ export default function DCSchedule() {
                 setError("Failed to fetch schedules. Try Again Later.");
                 setLoading(false);
             });
-
-        service.get(`/users/${collector_data}`)
-            .then(response => {
-                console.log("users",response.data)
-                setUser(response.data)
-            })
-            .catch(error => {setError("Error in Fetching user details")});
+        // service.get(`/users/${collector_data}`)
+        //     .then(response => {
+        //         console.log("users",response.data)
+        //         setUser(response.data)
+        //     })
+        //     .catch(error => {setError("Error in Fetching user details")});
     }, [collector_data]);
 
     
@@ -76,7 +75,7 @@ export default function DCSchedule() {
                             />
                         </Box>
                         <Typography variant="h5" sx={{ fontWeight: "bold", color: "#333", mb: 1 }}> Data Collector Details</Typography>
-                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>ID:</strong> {user.id}</Typography>
+                        <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>ID:</strong> <span>{user.id}</span></Typography>
                         <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Username:</strong> {user.username}</Typography>
                         <Typography variant="h6" sx={{ color: "#555" }}><strong style={{ color: "#1976D2" }}>Role:</strong> {user.role}</Typography>
                     </Paper>
@@ -85,7 +84,11 @@ export default function DCSchedule() {
                 )}
 
                 {/* Collector's Schedule Table */}
-                <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Collector's Schedule Table</Typography>
+                <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Collectors Schedule Table</Typography>
+
+                {error && (
+                    <Typography variant="h3" sx={{ mt: 3 }}>{error}</Typography>
+                )}
 
                 {loading ? (
                     <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
@@ -99,7 +102,7 @@ export default function DCSchedule() {
                                         <TableCell>Collectors</TableCell>
                                         <TableCell>Plant</TableCell>
                                         <TableCell>Visit Date</TableCell>
-                                        <TableCell>Details</TableCell>
+                                        <TableCell data-testid='button'>Details</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
