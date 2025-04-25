@@ -3,8 +3,7 @@ import Layout from '../src/components/Layout'
 import '@testing-library/jest-dom'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
-import store, { persistor } from '../redux/Store'
-import { PersistGate } from "redux-persist/integration/react";
+import store from '../redux/Store'
 
 import authReducer from '../redux/AuthSlice';
 

@@ -16,7 +16,6 @@ jest.mock('next/router', () => ({
 }))
 
 
-
 // test('shows login button when not authenticated', () => {
 
 //     const initialState = {
@@ -70,9 +69,6 @@ jest.mock('next/router', () => ({
 //     expect(screen.getByText('Schedule')).toBeInTheDocument();
 //     expect(screen.getByText('User')).toBeInTheDocument();
 //     expect(screen.getByText('Prediction')).toBeInTheDocument();
-//     // expect(screen.getByTestId('AccountCircle'));
-
-//     // expect(screen.getByText('LogOut')).toBeInTheDocument();
 // });
 
 test('renders logout menu', async () => {

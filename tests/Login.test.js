@@ -75,38 +75,8 @@ describe('Login Page', () => {
     //     userEvent.click(screen.getByText('Login'));
     // });
 
-    // test('handles login failure', async () => {
-    //     service.post.mockResolvedValueOnce({ data: {} });
-
-    //     const store = configureStore({
-    //         reducer: { authReducer },
-    //     });
-
-    //     store.dispatch(login({
-    //         user: 'testuser',
-    //         role: 'SuperAdmin',
-    //         token: 'tok_abc@1',
-    //     }));
-
-    //     render (
-    //         <Provider store={store}>
-    //             <Layout>
-    //                 <Login />
-    //             </Layout>
-    //         </Provider>
-    //     )
-    //     expect(screen.getByText('Login Page')).toBeInTheDocument();
-    //     userEvent.type(screen.getByText('Username'), 'testuser');
-    //     userEvent.type(screen.getByText('Password'), 'testpwd');
-    //     userEvent.click(screen.getByText('Login'));
-
-    //     setTimeout(() => {
-    //         expect(screen.getByTestId('error')).toHaveTextContent('Invalid Username or password');
-    //     }, 3000)
-    // }),
-
-    test('handles API failure', async () => {
-        service.post.mockRejectedValueOnce(new Error('request failed'));
+    test('handles login failure', async () => {
+        service.post.mockResolvedValueOnce({ data: {} });
 
         const store = configureStore({
             reducer: { authReducer },
@@ -131,7 +101,37 @@ describe('Login Page', () => {
         userEvent.click(screen.getByText('Login'));
 
         setTimeout(() => {
-            expect(screen.getByTestId('error')).toHaveTextContent('Failed authentication, Try Again');
+            expect(screen.getByTestId('error')).toHaveTextContent('Invalid Username or password');
         }, 3000)
     });
+
+    // test('handles API failure', async () => {
+    //     service.post.mockRejectedValueOnce(new Error('request failed'));
+
+    //     const store = configureStore({
+    //         reducer: { authReducer },
+    //     });
+
+    //     store.dispatch(login({
+    //         user: 'testuser',
+    //         role: 'SuperAdmin',
+    //         token: 'tok_abc@1',
+    //     }));
+
+    //     render (
+    //         <Provider store={store}>
+    //             <Layout>
+    //                 <Login />
+    //             </Layout>
+    //         </Provider>
+    //     )
+    //     expect(screen.getByText('Login Page')).toBeInTheDocument();
+    //     userEvent.type(screen.getByText('Username'), 'testuser');
+    //     userEvent.type(screen.getByText('Password'), 'testpwd');
+    //     userEvent.click(screen.getByText('Login'));
+
+    //     setTimeout(() => {
+    //         expect(screen.getByTestId('error')).toHaveTextContent('Failed authentication, Try Again');
+    //     }, 3000)
+    // });
 })

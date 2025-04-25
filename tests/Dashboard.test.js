@@ -30,8 +30,6 @@ describe("Dashboard Page", () => {
 
     axios.post.mockResolvedValue({ data: { access_token: 'mock-guest-token' } })
 
-    service.post.mockResolvedValue({ data: { access_token: 'mock-access-token' } })
-
 
     test("renders Dashboard page and calls embed Dashboard for apache superset", async () => {
 

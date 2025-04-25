@@ -79,7 +79,7 @@ describe('Predictions Page', () => {
     //     }, 3000);
     // });
 
-    test('renders predicted data', async () => {
+    test('failed prediction error', async () => {
         service.get.mockRejectedValueOnce(new Error('Prediction error'));
 
         const store = configureStore({

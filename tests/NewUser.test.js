@@ -99,7 +99,7 @@ describe('New User Page', () => {
     //     setTimeout(() => {
     //         expect(screen.getByTestId('error')).toHaveTextContent('Failed to create new user')
     //     }, 3000);
-    // })
+    // });
 
         test('new user creation failed and error message shown', async () => {
         service.post.mockRejectedValueOnce(new Error('failed to create new user'));
@@ -130,6 +130,5 @@ describe('New User Page', () => {
             expect(screen.getByTestId('error')).toHaveTextContent('Failed to create new user')
         }, 3000);
     })
-
 
 })

@@ -51,7 +51,7 @@ describe('Entire Search UI Page', () => {
 
     test('renders search result with expected fields', async () => {
 
-        service.get.mockResolvedValueOnce({ data: mockSearchData });
+        // service.get.mockResolvedValueOnce({ data: mockSearchData });
 
         const store = configureStore({
             reducer: { authReducer },
@@ -79,3 +79,5 @@ describe('Entire Search UI Page', () => {
         })
     })
 })
+
+//****************INCOMPLETE TEST CASE***********************

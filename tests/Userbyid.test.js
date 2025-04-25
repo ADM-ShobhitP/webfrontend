@@ -46,5 +46,5 @@ describe('UserById Page', () => {
         expect(screen.getByText('User: mockUser1')).toBeInTheDocument();
         expect(screen.getByText('Role: mockRole')).toBeInTheDocument();
         expect(screen.getByText('Id: 1')).toBeInTheDocument();
-    })
-})
+    });
+});
