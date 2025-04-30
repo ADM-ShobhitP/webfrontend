@@ -19,6 +19,7 @@ export default function ADetails() {
     const [insideBoundary, setInsideBoundary] = useState(false);
     const router = useRouter();
     const {schedule_data} = router.query;
+    console.log('schedule_data:', schedule_data)
     const [anchorEl, setAnchorEl] = useState(null);
     
 
@@ -30,14 +31,17 @@ export default function ADetails() {
     };
     const open = Boolean(anchorEl);
 
+    
     useEffect(() => {
+        if (!schedule_data) return;
         fetchApproverData();
-    },[schedule_data]);
+    }, [schedule_data]);
+    
 
     const fetchApproverData = () => {
         service.get('/gcd/')
             .then(response => {
-                const filteredData = response.data.filter(item => item.id == schedule_data);
+                const filteredData = response.data.filter(item => item.schedule.id == schedule_data);
                 console.log(filteredData);
 
                 if (filteredData) {
@@ -64,6 +68,7 @@ export default function ADetails() {
             })
             .finally(() => setLoading(false));
     };
+
 
 
     const pointInPolygon = (point, polygon) => {
@@ -97,6 +102,8 @@ export default function ADetails() {
             </Box>
         );
     }
+
+    
 
     return (
         <Layout>

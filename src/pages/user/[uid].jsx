@@ -8,7 +8,7 @@ export async function getStaticProps(context) {
   const { params } = context
   console.log('params');
 
-  const res = await service.get(`users/${params.uid}`)
+  const res = await service.get(`/users/${params.uid}`)
   const user = await res.data
 
   return {
@@ -19,7 +19,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const res = await service.get(`users`)
+  const res = await service.get(`/users`)
   const users = await res.data
   const paths = users.map((user) => ({
     params: { uid: user.id.toString() },

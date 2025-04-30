@@ -52,7 +52,7 @@ export default function Approver() {
                 {loading ? (
                     <Typography variant="h3" sx={{ mt: 3 }}>Loading...</Typography>
                 ):(
-                    <TableContainer component={Paper} sx={{ width: '60%', mt: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                    <TableContainer component={Paper} sx={{ width: '60%', mt: 3, mb: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
                         <Table>
                             <TableHead>
                                 <TableRow sx={{backgroundColor: '#f2f2f2' }}>

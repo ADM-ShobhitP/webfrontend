@@ -28,12 +28,12 @@ export default function DCSchedule() {
                 setError("Failed to fetch schedules. Try Again Later.");
                 setLoading(false);
             });
-        // service.get(`/users/${collector_data}`)
-        //     .then(response => {
-        //         console.log("users",response.data)
-        //         setUser(response.data)
-        //     })
-        //     .catch(error => {setError("Error in Fetching user details")});
+        service.get(`/users/${collector_data}`)
+            .then(response => {
+                console.log("users",response.data)
+                setUser(response.data)
+            })
+            .catch(error => {setError("Error in Fetching user details")});
     }, [collector_data]);
 
     

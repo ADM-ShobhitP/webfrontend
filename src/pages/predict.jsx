@@ -39,7 +39,11 @@ export default function PredictSchedule() {
                     </Button>
                 </Box>
                 {loading && <CircularProgress data-testid='load' color="primary" />}
-                {error && <Alert data-testid='error' severity="error">Error: {error}</Alert>}
+                {error && 
+                    <Paper elevation={3} sx={{ p: 2, backgroundColor: '#ffebee', mb: 3, mt: 3 }}>
+                        <Typography variant="body1" color="error" fontWeight="bold">{error}</Typography>
+                    </Paper>
+                }
                 {!loading && !error && message && <Alert severity="success">{message}</Alert>}
 
                 {!loading && !error && predictions.length > 0 && (
