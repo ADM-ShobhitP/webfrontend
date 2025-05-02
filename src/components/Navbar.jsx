@@ -36,7 +36,7 @@ export default function Navbar() {
             <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 
                 <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-                    <Typography variant="h6" sx={{ fontWeight: "bold", color: "white" }}>GeoLoc</Typography>
+                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "white" }}>GeoLoc</Typography>
                     <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                         <Link href="/" passHref style={{ textDecoration: "none", color: "white" }}>Home</Link>
                     </Typography>
@@ -50,7 +50,7 @@ export default function Navbar() {
                             <Link href="/schedule" passHref><Button color="inherit">Schedule</Button></Link>
                             <Link href="/newuser" passHref><Button color="inherit">NewUser</Button></Link>
                             <Link href="/predict" passHref><Button color="inherit">Prediction</Button></Link>
-                            {/* <Link href="/search" passHref><Button color="inherit">Search</Button></Link> */}
+                            <Link href="/search" passHref><Button color="inherit">Search</Button></Link>
                         </>
                     )}
                 </Box>

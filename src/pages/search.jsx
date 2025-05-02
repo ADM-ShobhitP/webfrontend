@@ -1,22 +1,18 @@
-import React from "react";
-import { SearchProvider, SearchBox, Results, Facet, ResultsPerPage, Sorting, Paging, PagingInfo } from "@elastic/react-search-ui";
-import { Typography, Card, CardMedia, CardContent, CardActions, Grid2, Button, } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { SearchProvider, SearchBox, Results, Facet, ResultsPerPage, Sorting, Paging, } from "@elastic/react-search-ui";
+import { Typography, Card, CardMedia, CardContent, CardActions, Grid2, Button, Paper, Box, CircularProgress } from "@mui/material";
 import { ErrorBoundary } from "react-error-boundary";
-// import { Layout as ElasticLayout } from "@elastic/react-search-ui-views";
+import { Layout as ElasticLayout } from "@elastic/react-search-ui-views";
 import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
-import dynamic from 'next/dynamic';
-
-const ElasticLayout = dynamic(() => import('@elastic/react-search-ui-views'), {
-  ssr: false,
-});
+import axios from "axios";
 
 
 const connector = new ElasticsearchAPIConnector({
   host: "https://localhost:9200",
   index: "geoapp_v3",
-  apiKey: "ZllDTkJKWUJqUzhQY2x5MGxyM2I6b3lIY0k1dVdSY3FkdDljZm9OSWRfZw==",
+  apiKey: "ZFdEOGhaWUI1RERFRU9tbGVRUk06Z3RiZHN6c19USG12Mnd5UkowXzFoUQ==",
 });
 
 const now = new Date();
@@ -111,6 +107,31 @@ const config = {
 
 export default function Search() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkElasticSearch = async () => {
+      try {
+        const response = await axios.get("https://localhost:9200", {
+          headers: {
+            Authorization: `ApiKey ZFdEOGhaWUI1RERFRU9tbGVRUk06Z3RiZHN6c19USG12Mnd5UkowXzFoUQ==`
+          },
+        });
+  
+        if(response.status === 200) {
+          setLoading(true);
+        }
+        else {
+          setLoading(false);
+        } 
+      }
+      catch (error) {
+        setLoading(false);
+      }
+    };
+
+    checkElasticSearch();
+  },[]);
 
   const CustomResultView = ({ result }) => {
     console.log("Result Object:", result);
@@ -179,10 +200,10 @@ export default function Search() {
     );   
   };  
 
-
   return (
     <Layout >
-      <SearchProvider config={config}>
+      {loading ? (
+        <SearchProvider config={config}>
         <div className="App">
           <ErrorBoundary>
             <ElasticLayout
@@ -231,7 +252,12 @@ export default function Search() {
             />
           </ErrorBoundary>
         </div>
-      </SearchProvider>
+        </SearchProvider>      
+      ):(
+        <Paper elevation={3} sx={{ p: 2, backgroundColor: '#ffebee', ml: 3, mr: 3, mb: 3, mt: 3 }}>
+            <Typography variant="body1" color="error" fontWeight="bold">ElasticSearch API Not Working</Typography>
+        </Paper>
+      )}
     </Layout>
   );
 }
