@@ -7,7 +7,9 @@ import axios from "axios";
 
 const supersetUrl = 'http://127.0.0.1:8088';
 const supersetApiUrl = `${supersetUrl}/api/v1/security`;
-const dashboardId = "882012ae-bec0-4234-9ce7-26c533368481";
+const dashboardId = process.env.NEXT_PUBLIC_SUPERSET_DASHBOARD_ID  || "882012ae-bec0-4234-9ce7-26c533368481";
+
+// const dashboardId = "97e8fab5-5626-42e5-bf73-aa61b00d19c9";
 
 export default function Dashboard() {
     const [error, setError] = useState("")
@@ -45,6 +47,7 @@ export default function Dashboard() {
                 };
 
                 console.log("Guest Token API:", `${supersetApiUrl}/guest_token`);
+                console.log("DahsboardId used", dashboardId)
 
                 const { data: guestData } = await axios.post(`${supersetApiUrl}/guest_token/`, guest_token_body, {
                     headers: {
@@ -54,7 +57,6 @@ export default function Dashboard() {
                 });
 
                 const guest_token = guestData.token;
-                console.log("Guest Token:", guest_token);
 
                 const mountPoint = document.getElementById("superset-container");
                 if (!mountPoint) {
@@ -93,7 +95,7 @@ export default function Dashboard() {
 
     return (
         <Layout>
-            <Box sx={{ p: 3, mt: 4, mb: 4, width: "90vw" }}>
+            <Box sx={{ p: 3, mt: 4, mb: 5, ml: 10, width: "90vw", border: 1, }} >
                 <Typography variant="h4" fontWeight="bold" gutterBottom>Dashboard</Typography>
 
                 {error && (

@@ -47,7 +47,7 @@ export default function PredictSchedule() {
                 {!loading && !error && message && <Alert severity="success">{message}</Alert>}
 
                 {!loading && !error && predictions.length > 0 && (
-                    <TableContainer component={Paper} sx={{ width: '60%', mt: 3, mb: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                    <TableContainer component={Paper} sx={{ width: '40%', mt: 3, mb: 3, boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)", }}>
                         <Table>
                             <TableHead>
                                 <TableRow sx={{ backgroundColor: "#f2f2f2" }}>

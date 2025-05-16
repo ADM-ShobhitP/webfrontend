@@ -41,6 +41,22 @@ export default function Schedule() {
         });
     };
 
+    const downloadFile = () => {
+        service.post('/export_schedule', {
+        }, { responseType: 'blob' })
+            .then(response => {
+                const csvURL = URL.createObjectURL(response.data)
+                const link = document.createElement('a')
+                link.href = csvURL;
+                link.setAttribute('download', 'schedule.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                link.remove();
+            })
+            .catch(error => console.error('Download failed', error));
+    }
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -55,7 +71,10 @@ export default function Schedule() {
         <Layout>
             <Box  sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 4 }}>
 
-                <Typography variant="h2" sx={{ flexGrow: 1, whiteSpace: 'nowrap' }}>Schedule Table</Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', width: '900px', mt: 3 }}>
+                    <Typography variant="h2" sx={{ flexGrow: 1}}> Schedule Table </Typography>
+                    <Button variant="contained" onClick={downloadFile}>Download</Button>
+                </Box>
 
                 {error && (
                     <Typography variant="h3" color="error" sx={{ mt: 3 }} data-testid='error'>{error}</Typography>
